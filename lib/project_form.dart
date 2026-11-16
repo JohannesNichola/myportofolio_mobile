@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/palette.dart';
+import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 /// Halaman form untuk menambahkan project baru.
 class ProjectFormPage extends StatefulWidget {
@@ -38,6 +39,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
         surfaceTintColor: Colors.transparent,
         shape: const Border(bottom: BorderSide(color: AppColors.line)),
       ),
+      drawer: const LeftDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
