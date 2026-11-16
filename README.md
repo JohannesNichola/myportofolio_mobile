@@ -31,6 +31,15 @@ Aplikasi mobile portofolio pribadi berbasis Flutter yang dikembangkan sebagai pr
 - Menulis widget test dan memastikan `flutter analyze` bersih.
 - Mengerjakan setiap perubahan pada branch terpisah dengan conventional commits, lalu menggabungkannya ke `main`.
 
+### Tutorial 9
+
+- Memigrasikan impor Material ke paket standalone `material_ui` sesuai petunjuk tutorial.
+- Membuat `LeftDrawer` sebagai menu navigasi antarhalaman (Home dan Add Project) dengan `Navigator`.
+- Membuat halaman `ProjectFormPage` berisi `Form` dan elemen input dengan validasi, serta dialog yang menampilkan data yang diisi.
+- Menambahkan navigasi dari tombol Tambah Project ke halaman form.
+- Merapikan struktur proyek ke direktori `lib/screens` dan `lib/widgets`.
+- Mengerjakan setiap perubahan pada branch terpisah dengan conventional commits, lalu menggabungkannya ke `main`.
+
 ## Pertanyaan Reflektif
 
 ### Tugas 7
