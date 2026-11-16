@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/palette.dart';
 
 /// Halaman utama aplikasi MyPortfolio Mobile.
