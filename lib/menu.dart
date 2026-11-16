@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/palette.dart';
+import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 /// Halaman utama aplikasi MyPortfolio Mobile.
 class MyHomePage extends StatelessWidget {
@@ -29,6 +30,7 @@ class MyHomePage extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         shape: const Border(bottom: BorderSide(color: AppColors.line)),
       ),
+      drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
