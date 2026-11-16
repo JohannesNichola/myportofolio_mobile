@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myportofolio_mobile/menu.dart';
+import 'package:myportofolio_mobile/palette.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,17 +9,22 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // Widget akar aplikasi.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MyPortfolio',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          secondary: Colors.amber[700],
-        ),
         useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.paper,
+        colorScheme: const ColorScheme.dark(
+          primary: AppColors.accent,
+          onPrimary: AppColors.paper,
+          secondary: AppColors.accentDark,
+          onSecondary: AppColors.paper,
+          surface: AppColors.paper,
+          onSurface: AppColors.ink,
+          outline: AppColors.line,
+        ),
       ),
       home: MyHomePage(),
     );
