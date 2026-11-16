@@ -1,30 +1,48 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:myportofolio_mobile/main.dart';
+import 'package:myportofolio_mobile/menu.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  void useLargeScreen(WidgetTester tester) {
+    tester.view.physicalSize = const Size(1200, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+  }
+
+  testWidgets('menampilkan identitas dan semua tombol aksi', (tester) async {
+    useLargeScreen(tester);
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('2406495930'), findsOneWidget);
+    expect(find.text('Johannes Nichola Simatupang'), findsOneWidget);
+    expect(find.text('PBP C'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    for (final name in [
+      'Experience',
+      'Education',
+      'Project',
+      'Logout',
+    ]) {
+      expect(find.text(name), findsOneWidget);
+    }
+  });
+
+  testWidgets('menampilkan SnackBar saat tombol ditekan', (tester) async {
+    useLargeScreen(tester);
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text('Experience'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(
+      find.text('Kamu telah menekan tombol Experience!'),
+      findsOneWidget,
+    );
+  });
+
+  test('setiap tombol aksi punya warna yang berbeda', () {
+    final colors = MyHomePage().items.map((item) => item.color).toSet();
+    expect(colors.length, MyHomePage().items.length);
   });
 }
