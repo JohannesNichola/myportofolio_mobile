@@ -1,7 +1,7 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/main.dart';
-import 'package:myportofolio_mobile/menu.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 
 void main() {
   void useLargeScreen(WidgetTester tester) {
@@ -22,6 +22,7 @@ void main() {
       'Experience',
       'Education',
       'Project',
+      'Add Project',
       'Logout',
     ]) {
       expect(find.text(name), findsOneWidget);
@@ -39,6 +40,17 @@ void main() {
       find.text('Kamu telah menekan tombol Experience!'),
       findsOneWidget,
     );
+  });
+
+  testWidgets('membuka halaman form saat Add Project ditekan',
+      (tester) async {
+    useLargeScreen(tester);
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text('Add Project'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Add Project Form'), findsOneWidget);
   });
 
   test('setiap tombol aksi punya warna yang berbeda', () {
