@@ -10,9 +10,10 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "PBP C";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Experience", Icons.work, AppColors.experience),
-    ItemHomepage("Lihat Education", Icons.school, AppColors.education),
-    ItemHomepage("Lihat Project", Icons.folder, AppColors.project),
+    ItemHomepage("Experience", Icons.work, AppColors.experience),
+    ItemHomepage("Education", Icons.school, AppColors.education),
+    ItemHomepage("Project", Icons.folder, AppColors.project),
+    ItemHomepage("Logout", Icons.logout, AppColors.logout),
   ];
 
   @override
@@ -52,15 +53,15 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            GridView.count(
-              primary: true,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              children:
-                  items.map((ItemHomepage item) => ItemCard(item)).toList(),
+            Expanded(
+              child: GridView.count(
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                children:
+                    items.map((ItemHomepage item) => ItemCard(item)).toList(),
+              ),
             ),
           ],
         ),
