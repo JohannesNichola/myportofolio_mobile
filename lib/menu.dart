@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/palette.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/project_form.dart';
 
 /// Halaman utama aplikasi MyPortfolio Mobile.
 class MyHomePage extends StatelessWidget {
@@ -14,6 +15,7 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("Experience", Icons.work, AppColors.experience),
     ItemHomepage("Education", Icons.school, AppColors.education),
     ItemHomepage("Project", Icons.folder, AppColors.project),
+    ItemHomepage("Add Project", Icons.add_circle, AppColors.add),
     ItemHomepage("Logout", Icons.logout, AppColors.logout),
   ];
 
@@ -138,6 +140,15 @@ class ItemCard extends StatelessWidget {
                 content: Text("Kamu telah menekan tombol ${item.name}!"),
               ),
             );
+
+          if (item.name == "Tambah Project") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProjectFormPage(),
+              ),
+            );
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
