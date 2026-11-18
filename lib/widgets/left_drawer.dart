@@ -38,26 +38,28 @@ class LeftDrawer extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(color: AppColors.accent),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'My Portfolio',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.paper,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'My Portfolio',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.paper,
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Explore personal projects and experiences!',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: AppColors.paper,
+                  SizedBox(height: 10),
+                  Text(
+                    'Explore personal projects and experiences!',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: AppColors.paper,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           _buildItem(

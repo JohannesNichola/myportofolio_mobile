@@ -10,7 +10,7 @@ void main() {
     addTearDown(tester.view.reset);
   }
 
-  testWidgets('menampilkan identitas dan semua tombol aksi', (tester) async {
+  testWidgets('menampilkan identitas dan semua kartu aksi', (tester) async {
     useLargeScreen(tester);
     await tester.pumpWidget(const MyApp());
 
@@ -22,6 +22,8 @@ void main() {
       'Experience',
       'Education',
       'Project',
+      'Add Experience',
+      'Add Education',
       'Add Project',
       'Logout',
     ]) {
@@ -29,7 +31,7 @@ void main() {
     }
   });
 
-  testWidgets('menampilkan SnackBar saat tombol ditekan', (tester) async {
+  testWidgets('menampilkan SnackBar saat kartu ditekan', (tester) async {
     useLargeScreen(tester);
     await tester.pumpWidget(const MyApp());
 
@@ -42,18 +44,66 @@ void main() {
     );
   });
 
-  testWidgets('membuka halaman form saat Add Project ditekan',
+  // Setiap kartu Add membuka formulir yang sesuai.
+  const forms = {
+    'Add Experience': 'Add New Experience',
+    'Add Education': 'Add New Education',
+    'Add Project': 'Add New Project',
+  };
+  forms.forEach((card, header) {
+    testWidgets('kartu $card membuka formulir yang sesuai', (tester) async {
+      useLargeScreen(tester);
+      await tester.pumpWidget(const MyApp());
+
+      await tester.tap(find.text(card));
+      await tester.pumpAndSettle();
+
+      expect(find.text(header), findsOneWidget);
+    });
+  });
+
+  testWidgets('menampilkan pesan error saat Simpan dengan input kosong',
       (tester) async {
     useLargeScreen(tester);
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.text('Add Project'));
+    await tester.tap(find.text('Add Experience'));
     await tester.pumpAndSettle();
+    await tester.tap(find.text('Simpan'));
+    await tester.pump();
 
-    expect(find.text('Add Project Form'), findsOneWidget);
+    expect(find.text('Judul pengalaman tidak boleh kosong!'), findsOneWidget);
+    expect(find.text('Nama perusahaan tidak boleh kosong!'), findsOneWidget);
+    expect(find.text('Deskripsi tidak boleh kosong!'), findsOneWidget);
+    expect(find.text('Tanggal mulai wajib dipilih!'), findsOneWidget);
+    expect(find.byType(AlertDialog), findsNothing);
   });
 
-  test('setiap tombol aksi punya warna yang berbeda', () {
+  testWidgets('drawer membuka formulir dan Home kembali ke halaman utama',
+      (tester) async {
+    useLargeScreen(tester);
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+    await tester.tap(find.descendant(
+      of: find.byType(Drawer),
+      matching: find.text('Add Education'),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Add New Education'), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+    await tester.tap(find.descendant(
+      of: find.byType(Drawer),
+      matching: find.text('Home'),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Selamat datang di MyPortfolio Mobile!'), findsOneWidget);
+  });
+
+  test('setiap kartu aksi punya warna yang berbeda', () {
     final colors = MyHomePage().items.map((item) => item.color).toSet();
     expect(colors.length, MyHomePage().items.length);
   });
