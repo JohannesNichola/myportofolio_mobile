@@ -16,6 +16,8 @@ class AppColors {
   static const Color experience = Color(0xFF8B5E34);
   static const Color education = Color(0xFF2F6F73);
   static const Color project = Color(0xFF7A4B73);
-  static const Color add = Color(0xFF2E7D4F);
+  static const Color addExperience = Color(0xFFB8651B);
+  static const Color addEducation = Color(0xFF3B6EA8);
+  static const Color addProject = Color(0xFFB5517A);
   static const Color logout = danger;
 }

@@ -1,8 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
-import 'package:myportofolio_mobile/screens/project_form.dart';
 
 /// Kartu tombol aksi; warna latar diambil dari [ItemHomepage.color].
+/// Jika [ItemHomepage.page] terisi, kartu membuka halaman tersebut.
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
 
@@ -25,12 +25,11 @@ class ItemCard extends StatelessWidget {
             );
 
           // Navigate ke halaman yang sesuai
-          if (item.name == "Add Project") {
+          final page = item.page;
+          if (page != null) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const ProjectFormPage(),
-              ),
+              MaterialPageRoute(builder: (context) => page),
             );
           }
         },
