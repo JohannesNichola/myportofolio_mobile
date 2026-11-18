@@ -1,5 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/palette.dart';
+import 'package:myportofolio_mobile/screens/education_form.dart';
+import 'package:myportofolio_mobile/screens/experience_form.dart';
+import 'package:myportofolio_mobile/screens/project_form.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
 
@@ -15,7 +18,24 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("Experience", Icons.work, AppColors.experience),
     ItemHomepage("Education", Icons.school, AppColors.education),
     ItemHomepage("Project", Icons.folder, AppColors.project),
-    ItemHomepage("Add Project", Icons.add_circle, AppColors.add),
+    ItemHomepage(
+      "Add Experience",
+      Icons.add_circle,
+      AppColors.addExperience,
+      page: const ExperienceFormPage(),
+    ),
+    ItemHomepage(
+      "Add Education",
+      Icons.add_circle,
+      AppColors.addEducation,
+      page: const EducationFormPage(),
+    ),
+    ItemHomepage(
+      "Add Project",
+      Icons.add_circle,
+      AppColors.addProject,
+      page: const ProjectFormPage(),
+    ),
     ItemHomepage("Logout", Icons.logout, AppColors.logout),
   ];
 
@@ -111,11 +131,13 @@ class InfoCard extends StatelessWidget {
   }
 }
 
-/// Model data untuk satu tombol aksi di halaman utama.
+/// Model data untuk satu kartu aksi di halaman utama.
+/// [page] bersifat opsional: jika diisi, kartu membuka halaman tersebut.
 class ItemHomepage {
   final String name;
   final IconData icon;
   final Color color;
+  final Widget? page;
 
-  ItemHomepage(this.name, this.icon, this.color);
+  ItemHomepage(this.name, this.icon, this.color, {this.page});
 }
