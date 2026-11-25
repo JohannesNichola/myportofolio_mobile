@@ -1,18 +1,26 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/main.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
+import 'package:myportofolio_mobile/services/api_client.dart';
 
 void main() {
-  void useLargeScreen(WidgetTester tester) {
+  /// Menjalankan aplikasi di layar besar dengan server palsu.
+  Future<void> pumpApp(WidgetTester tester, {MockClientHandler? handler}) {
     tester.view.physicalSize = const Size(1200, 1600);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
+
+    final client = MockClient(
+      handler ?? (request) async => http.Response('[]', 200),
+    );
+    return tester.pumpWidget(MyApp(apiClient: ApiClient(client: client)));
   }
 
   testWidgets('menampilkan identitas dan semua kartu aksi', (tester) async {
-    useLargeScreen(tester);
-    await tester.pumpWidget(const MyApp());
+    await pumpApp(tester);
 
     expect(find.text('2406495930'), findsOneWidget);
     expect(find.text('Johannes Nichola Simatupang'), findsOneWidget);
@@ -32,8 +40,7 @@ void main() {
   });
 
   testWidgets('menampilkan SnackBar saat kartu ditekan', (tester) async {
-    useLargeScreen(tester);
-    await tester.pumpWidget(const MyApp());
+    await pumpApp(tester);
 
     await tester.tap(find.text('Experience'));
     await tester.pump();
@@ -49,8 +56,7 @@ void main() {
   };
   forms.forEach((card, header) {
     testWidgets('kartu $card membuka formulir yang sesuai', (tester) async {
-      useLargeScreen(tester);
-      await tester.pumpWidget(const MyApp());
+      await pumpApp(tester);
 
       await tester.tap(find.text(card));
       await tester.pumpAndSettle();
@@ -62,8 +68,7 @@ void main() {
   testWidgets('menampilkan pesan error saat Simpan dengan input kosong', (
     tester,
   ) async {
-    useLargeScreen(tester);
-    await tester.pumpWidget(const MyApp());
+    await pumpApp(tester);
 
     await tester.tap(find.text('Add Experience'));
     await tester.pumpAndSettle();
@@ -80,8 +85,7 @@ void main() {
   testWidgets('drawer membuka formulir dan Home kembali ke halaman utama', (
     tester,
   ) async {
-    useLargeScreen(tester);
-    await tester.pumpWidget(const MyApp());
+    await pumpApp(tester);
 
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
