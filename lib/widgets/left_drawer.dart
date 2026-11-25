@@ -4,6 +4,7 @@ import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/education_form.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
+import 'package:myportofolio_mobile/screens/project_list_screen.dart';
 
 /// Drawer menu untuk berpindah antar halaman aplikasi.
 /// Drawer yang sama dipakai di halaman utama dan semua halaman formulir.
@@ -64,6 +65,12 @@ class LeftDrawer extends StatelessWidget {
             icon: Icons.home_outlined,
             title: 'Home',
             page: MyHomePage(),
+          ),
+          _buildItem(
+            context,
+            icon: Icons.folder_outlined,
+            title: 'Projects',
+            page: const ProjectListScreen(),
           ),
           const Divider(color: AppColors.line),
           _buildItem(
