@@ -5,6 +5,7 @@ import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
+import 'package:myportofolio_mobile/screens/project_list_screen.dart';
 
 /// Halaman utama aplikasi MyPortfolio Mobile.
 class MyHomePage extends StatelessWidget {
@@ -17,7 +18,12 @@ class MyHomePage extends StatelessWidget {
   final List<ItemHomepage> items = [
     ItemHomepage("Experience", Icons.work, AppColors.experience),
     ItemHomepage("Education", Icons.school, AppColors.education),
-    ItemHomepage("Project", Icons.folder, AppColors.project),
+    ItemHomepage(
+      "Project",
+      Icons.folder,
+      AppColors.project,
+      page: const ProjectListScreen(),
+    ),
     ItemHomepage(
       "Add Experience",
       Icons.add_circle,
