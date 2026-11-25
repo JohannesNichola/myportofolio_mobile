@@ -87,8 +87,9 @@ class MyHomePage extends StatelessWidget {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
-                children:
-                    items.map((ItemHomepage item) => ItemCard(item)).toList(),
+                children: items
+                    .map((ItemHomepage item) => ItemCard(item))
+                    .toList(),
               ),
             ),
           ],
