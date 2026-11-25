@@ -13,8 +13,8 @@ Aplikasi mobile portofolio pribadi berbasis Flutter yang dikembangkan sebagai pr
 1. Pasang Flutter SDK (Dart SDK sudah ikut di dalamnya) dan pastikan `flutter --version` berjalan di terminal.
 2. Clone repository `git clone https://github.com/JohannesNichola/myportofolio_mobile.git`
 3. Masuk ke folder proyek `cd myportofolio_mobile`
-4. Unduh dependensi `flutter pub get`
-5. Jalankan aplikasi di Google Chrome `flutter run -d chrome`
+4. Unduh dependensi `flutter pub get`, lalu buat file model dengan `dart run build_runner build --delete-conflicting-outputs`
+5. Jalankan backend Django (`python manage.py runserver`), lalu jalankan aplikasi di Google Chrome `flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8000`
 
 ## Progres Mingguan
 
@@ -47,6 +47,15 @@ Aplikasi mobile portofolio pribadi berbasis Flutter yang dikembangkan sebagai pr
 - Menambahkan kartu aksi di halaman utama dan opsi pada `LeftDrawer` untuk membuka setiap form.
 - Menyesuaikan tampilan halaman utama agar kartu informasi sama tinggi dan grid tidak menempel pada judul saat di-scroll.
 - Memperbarui widget test dan memastikan `flutter analyze` bersih.
+
+### Tutorial 10
+
+- Menambahkan dependensi `http`, `provider`, dan `json_serializable`, izin `INTERNET` di Android, serta `lib/config.dart` untuk alamat backend.
+- Membuat model `Project` dengan `json_serializable` dan `ApiClient` untuk mengambil data, membuat project, login token, dan logout dari backend Django.
+- Membuat `ProjectListScreen` dan `ProjectDetailScreen` yang dapat dilihat tanpa login.
+- Membuat `AuthState` dengan `provider`, `LoginScreen`, dan `ensureLoggedIn` agar Add Project hanya dapat dibuka setelah login, serta tombol Login/Logout di drawer.
+- Menambahkan GitHub Actions (`.github/workflows/main.yaml`) untuk analisis, pengujian, dan build APK yang diunggah sebagai artifact.
+- Mengerjakan setiap perubahan pada branch terpisah dengan conventional commits, lalu menggabungkannya ke `main`.
 
 ## Pertanyaan Reflektif
 
