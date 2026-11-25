@@ -85,10 +85,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const FormHeader(
-                    kicker: 'Project',
-                    title: 'Add New Project',
-                  ),
+                  const FormHeader(kicker: 'Project', title: 'Add New Project'),
                   FormTextField(
                     label: 'Project Title',
                     hint: 'Portfolio Website',

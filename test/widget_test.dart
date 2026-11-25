@@ -38,10 +38,7 @@ void main() {
     await tester.tap(find.text('Experience'));
     await tester.pump();
 
-    expect(
-      find.text('Kamu telah menekan tombol Experience!'),
-      findsOneWidget,
-    );
+    expect(find.text('Kamu telah menekan tombol Experience!'), findsOneWidget);
   });
 
   // Setiap kartu Add membuka formulir yang sesuai.
@@ -62,8 +59,9 @@ void main() {
     });
   });
 
-  testWidgets('menampilkan pesan error saat Simpan dengan input kosong',
-      (tester) async {
+  testWidgets('menampilkan pesan error saat Simpan dengan input kosong', (
+    tester,
+  ) async {
     useLargeScreen(tester);
     await tester.pumpWidget(const MyApp());
 
@@ -79,26 +77,28 @@ void main() {
     expect(find.byType(AlertDialog), findsNothing);
   });
 
-  testWidgets('drawer membuka formulir dan Home kembali ke halaman utama',
-      (tester) async {
+  testWidgets('drawer membuka formulir dan Home kembali ke halaman utama', (
+    tester,
+  ) async {
     useLargeScreen(tester);
     await tester.pumpWidget(const MyApp());
 
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
-    await tester.tap(find.descendant(
-      of: find.byType(Drawer),
-      matching: find.text('Add Education'),
-    ));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(Drawer),
+        matching: find.text('Add Education'),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.text('Add New Education'), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
-    await tester.tap(find.descendant(
-      of: find.byType(Drawer),
-      matching: find.text('Home'),
-    ));
+    await tester.tap(
+      find.descendant(of: find.byType(Drawer), matching: find.text('Home')),
+    );
     await tester.pumpAndSettle();
     expect(find.text('Selamat datang di MyPortfolio Mobile!'), findsOneWidget);
   });

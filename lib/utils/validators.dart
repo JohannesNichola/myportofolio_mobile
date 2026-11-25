@@ -29,7 +29,8 @@ class Validators {
     if (text.isEmpty) return null;
 
     final uri = Uri.tryParse(text);
-    final isValid = uri != null &&
+    final isValid =
+        uri != null &&
         (uri.scheme == 'http' || uri.scheme == 'https') &&
         uri.host.isNotEmpty;
     return isValid

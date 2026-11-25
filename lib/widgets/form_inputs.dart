@@ -127,10 +127,10 @@ class FormDropdown extends StatelessWidget {
         decoration: formDecoration(label: label),
         initialValue: initialValue,
         items: options.entries
-            .map((entry) => DropdownMenuItem(
-                  value: entry.key,
-                  child: Text(entry.value),
-                ))
+            .map(
+              (entry) =>
+                  DropdownMenuItem(value: entry.key, child: Text(entry.value)),
+            )
             .toList(),
         onChanged: (String? newValue) {
           if (newValue != null) onChanged(newValue);
@@ -150,55 +150,52 @@ class FormDateField extends FormField<DateTime> {
     super.validator,
     bool clearable = false,
   }) : super(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          builder: (FormFieldState<DateTime> field) {
-            final value = field.value;
+         autovalidateMode: AutovalidateMode.onUserInteraction,
+         builder: (FormFieldState<DateTime> field) {
+           final value = field.value;
 
-            Future<void> pickDate() async {
-              final picked = await showDatePicker(
-                context: field.context,
-                initialDate: value ?? DateTime.now(),
-                firstDate: DateTime(1990),
-                lastDate: DateTime(2100),
-              );
-              if (picked == null || !field.mounted) return;
-              field.didChange(picked);
-              onChanged(picked);
-            }
+           Future<void> pickDate() async {
+             final picked = await showDatePicker(
+               context: field.context,
+               initialDate: value ?? DateTime.now(),
+               firstDate: DateTime(1990),
+               lastDate: DateTime(2100),
+             );
+             if (picked == null || !field.mounted) return;
+             field.didChange(picked);
+             onChanged(picked);
+           }
 
-            void clear() {
-              field.didChange(null);
-              onChanged(null);
-            }
+           void clear() {
+             field.didChange(null);
+             onChanged(null);
+           }
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(5.0),
-                onTap: pickDate,
-                child: InputDecorator(
-                  isEmpty: value == null,
-                  decoration: formDecoration(label: label).copyWith(
-                    errorText: field.errorText,
-                    suffixIcon: clearable && value != null
-                        ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: clear,
-                          )
-                        : const Icon(Icons.calendar_today),
-                  ),
-                  child: Text(
-                    value == null ? '' : formatDate(value),
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: AppColors.ink,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
+           return Padding(
+             padding: const EdgeInsets.symmetric(vertical: 8.0),
+             child: InkWell(
+               borderRadius: BorderRadius.circular(5.0),
+               onTap: pickDate,
+               child: InputDecorator(
+                 isEmpty: value == null,
+                 decoration: formDecoration(label: label).copyWith(
+                   errorText: field.errorText,
+                   suffixIcon: clearable && value != null
+                       ? IconButton(
+                           icon: const Icon(Icons.clear),
+                           onPressed: clear,
+                         )
+                       : const Icon(Icons.calendar_today),
+                 ),
+                 child: Text(
+                   value == null ? '' : formatDate(value),
+                   style: const TextStyle(fontSize: 16.0, color: AppColors.ink),
+                 ),
+               ),
+             ),
+           );
+         },
+       );
 }
 
 /// Tombol Simpan berlebar penuh untuk semua formulir.
