@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/main.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/services/api_client.dart';
+import 'package:myportofolio_mobile/screens/login_screen.dart';
 
 void main() {
   /// Menjalankan aplikasi di layar besar dengan server palsu.
@@ -52,7 +53,6 @@ void main() {
   const forms = {
     'Add Experience': 'Add New Experience',
     'Add Education': 'Add New Education',
-    'Add Project': 'Add New Project',
   };
   forms.forEach((card, header) {
     testWidgets('kartu $card membuka formulir yang sesuai', (tester) async {
@@ -105,6 +105,58 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Selamat datang di MyPortfolio Mobile!'), findsOneWidget);
+  });
+
+  testWidgets('Add Project mengarahkan ke Login jika belum masuk', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+
+    await tester.tap(find.text('Add Project'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(LoginScreen), findsOneWidget);
+    expect(find.text('Add New Project'), findsNothing);
+  });
+
+  testWidgets('setelah login berhasil, Add Project membuka formulir', (
+    tester,
+  ) async {
+    await pumpApp(
+      tester,
+      handler: (request) async {
+        if (request.url.path == '/api/v1/auth/token/') {
+          return http.Response('{"token": "abc"}', 200);
+        }
+        return http.Response('[]', 200);
+      },
+    );
+
+    await tester.tap(find.text('Add Project'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextFormField).at(0), 'admin');
+    await tester.enterText(find.byType(TextFormField).at(1), 'secret');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(LoginScreen), findsNothing);
+    expect(find.text('Add New Project'), findsOneWidget);
+  });
+
+  testWidgets('drawer menampilkan Login saat belum masuk', (tester) async {
+    await pumpApp(tester);
+
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(of: find.byType(Drawer), matching: find.text('Login')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: find.byType(Drawer), matching: find.text('Logout')),
+      findsNothing,
+    );
   });
 
   test('setiap kartu aksi punya warna yang berbeda', () {

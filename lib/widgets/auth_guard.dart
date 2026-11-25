@@ -16,3 +16,21 @@ Future<bool> ensureLoggedIn(BuildContext context) async {
   );
   return loggedIn ?? false;
 }
+
+/// Logout dari kartu Logout maupun drawer; memberi umpan balik lewat SnackBar.
+Future<void> performLogout(BuildContext context) async {
+  final auth = context.read<AuthState>();
+  final messenger = ScaffoldMessenger.of(context);
+  final wasLoggedIn = auth.isLoggedIn;
+
+  messenger.hideCurrentSnackBar();
+  if (!wasLoggedIn) {
+    messenger.showSnackBar(const SnackBar(content: Text('Kamu belum login.')));
+    return;
+  }
+
+  await auth.logout();
+  messenger
+    ..hideCurrentSnackBar()
+    ..showSnackBar(const SnackBar(content: Text('Berhasil logout.')));
+}
