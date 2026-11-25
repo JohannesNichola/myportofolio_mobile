@@ -6,6 +6,7 @@ import 'package:myportofolio_mobile/screens/project_form.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
 import 'package:myportofolio_mobile/screens/project_list_screen.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
 
 /// Halaman utama aplikasi MyPortfolio Mobile.
 class MyHomePage extends StatelessWidget {
@@ -41,8 +42,14 @@ class MyHomePage extends StatelessWidget {
       Icons.add_circle,
       AppColors.addProject,
       page: const ProjectFormPage(),
+      requiresLogin: true,
     ),
-    ItemHomepage("Logout", Icons.logout, AppColors.logout),
+    ItemHomepage(
+      "Logout",
+      Icons.logout,
+      AppColors.logout,
+      onTap: performLogout,
+    ),
   ];
 
   @override
@@ -144,11 +151,22 @@ class InfoCard extends StatelessWidget {
 
 /// Model data untuk satu kartu aksi di halaman utama.
 /// [page] bersifat opsional: jika diisi, kartu membuka halaman tersebut.
+/// [requiresLogin] mewajibkan login sebelum [page] dibuka.
+/// [onTap] bersifat opsional: aksi khusus (mis. Logout) yang menggantikan navigasi.
 class ItemHomepage {
   final String name;
   final IconData icon;
   final Color color;
   final Widget? page;
+  final bool requiresLogin;
+  final Future<void> Function(BuildContext context)? onTap;
 
-  ItemHomepage(this.name, this.icon, this.color, {this.page});
+  ItemHomepage(
+    this.name,
+    this.icon,
+    this.color, {
+    this.page,
+    this.requiresLogin = false,
+    this.onTap,
+  });
 }
